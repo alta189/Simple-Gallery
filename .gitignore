@@ -136,7 +136,7 @@ crashlytics.properties
 crashlytics-build.properties
 
 ### Project Specific ###
-resources/
+/resources/
 logs/
 */**/Test.java
 /server.properties
