@@ -3,6 +3,7 @@ package com.alta189.simple.gallery;
 import com.alta189.simple.gallery.utils.DateTimeTypeConverter;
 import com.alta189.simple.gallery.utils.HashUtils;
 import com.alta189.simple.gallery.utils.TempDirectory;
+import com.alta189.auto.spark.SparkAutoConfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.lingala.zip4j.core.ZipFile;
@@ -13,6 +14,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import spark.Spark;
 import spark.resource.ClassPathResource;
 import spark.utils.IOUtils;
 
@@ -49,12 +51,15 @@ public class SimpleGalleryServer {
         tempDir.getPath().toFile().mkdirs();
         tempDir.deleteOnExit();
 
-//        try {
-//            Thread.sleep(1000);
-//        } catch (Exception ignored) {
-//        }
-
         processResources();
+
+        Spark.port(SETTINGS.port());
+
+        SparkAutoConfig sparkAutoConfig = new SparkAutoConfig();
+	    sparkAutoConfig.run();
+
+        Spark.awaitInitialization();
+        System.out.println("INITIALIZED");
     }
 
     private static void printBanner(DateTime start) {
