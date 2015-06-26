@@ -1,11 +1,12 @@
 package com.alta189.simple.gallery;
 
+import com.alta189.auto.spark.AutoSpark;
 import com.alta189.simple.gallery.utils.DateTimeTypeConverter;
 import com.alta189.simple.gallery.utils.HashUtils;
 import com.alta189.simple.gallery.utils.TempDirectory;
-import com.alta189.auto.spark.SparkAutoConfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import javassist.NotFoundException;
 import net.lingala.zip4j.core.ZipFile;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.commons.io.FileUtils;
@@ -55,9 +56,9 @@ public class SimpleGalleryServer {
 
         Spark.port(SETTINGS.port());
 
-        SparkAutoConfig sparkAutoConfig = new SparkAutoConfig();
-	    sparkAutoConfig.run();
-
+        AutoSpark autoSpark = new AutoSpark();
+	    autoSpark.run();
+        
         Spark.awaitInitialization();
         System.out.println("INITIALIZED");
     }
