@@ -71,7 +71,7 @@
         </dependency>
         <dependency>
             <groupId>com.alta189</groupId>
-            <artifactId>spark-auto-config</artifactId>
+            <artifactId>auto-spark</artifactId>
             <version>${version.spark-auto}</version>
         </dependency>
 
