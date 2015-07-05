@@ -145,7 +145,7 @@ public class SimpleGalleryServer {
 
         Map<String, Object> expected = GSON.fromJson(SimpleGalleryConstants.Resources.RESOURCES_SHA1_MAP, SimpleGalleryConstants.GsonTypes.TYPE_MAP_STRING_OBJECT);
         Map<String, Object> actual = HashUtils.getDirectoryHashes(RESOURCES_DIRECTORY);
-        return actual.equals(expected);
+	    return actual.equals(expected);
     }
 
     private static void downloadFoundation() {
