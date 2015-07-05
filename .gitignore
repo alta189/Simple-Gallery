@@ -137,7 +137,9 @@ crashlytics-build.properties
 
 ### Project Specific ###
 /resources/
-logs/
+/logs/
 */**/Test.java
 /server.properties
 dependency-reduced-pom.xml
+/images
+/data

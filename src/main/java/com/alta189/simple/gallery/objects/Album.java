@@ -1,10 +1,14 @@
 package com.alta189.simple.gallery.objects;
 
+import com.alta189.simple.gallery.SimpleGalleryServer;
 import com.alta189.simplesave.Field;
 import com.alta189.simplesave.Id;
 import com.alta189.simplesave.Table;
 import com.google.gson.annotations.Expose;
 import org.joda.time.DateTime;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Table("fields")
 public class Album {
@@ -20,6 +24,12 @@ public class Album {
 	@Field
 	@Expose
 	private DateTime uploaded;
+	@Expose
+	private List<Image> images;
+
+	public void refresh() {
+		images = SimpleGalleryServer.getDatabase().select(Image.class).where().equal("album", id).execute().find();
+	}
 
 	public int getId() {
 		return id;

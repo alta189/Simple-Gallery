@@ -1,5 +1,6 @@
 package com.alta189.simple.gallery;
 
+import com.alta189.simple.gallery.objects.Result;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -15,5 +16,9 @@ public class SimpleGalleryConstants {
     public static class GsonTypes {
         public static final Type TYPE_MAP_STRING_OBJECT = new TypeToken<Map<String, Object>>() {
         }.getType();
+    }
+
+    public static class Results {
+	    public static final Result SUCCESS = Result.wrap("success");
     }
 }
