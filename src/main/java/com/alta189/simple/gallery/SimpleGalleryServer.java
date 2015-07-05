@@ -4,6 +4,7 @@ import com.alta189.auto.spark.AutoSpark;
 import com.alta189.simple.gallery.utils.DateTimeTypeConverter;
 import com.alta189.simple.gallery.utils.HashUtils;
 import com.alta189.simple.gallery.utils.TempDirectory;
+import com.alta189.simplesave.Database;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import javassist.NotFoundException;
@@ -11,6 +12,7 @@ import net.lingala.zip4j.core.ZipFile;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
@@ -22,6 +24,7 @@ import spark.utils.IOUtils;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 public class SimpleGalleryServer {
@@ -36,11 +39,21 @@ public class SimpleGalleryServer {
     public static final DateTimeFormatter DATE_FORMAT = DateTimeFormat.forPattern("MM/dd/yyyy hh:mm:ss aa");
     public static final TempDirectory tempDir = new TempDirectory("simple-gallery");
     public static final File resourcesDir = new File("resources");
+	public static final DatabaseManager DATABASE_MANAGER = new DatabaseManager();
     private static final Logger logger = LoggerFactory.getLogger(SimpleGalleryServer.class);
+	public static Map<String, String> VERSION_INFO;
+	public static String VERSION_INFO_JSON;
 
     static {
         ABOUT = ConfigFactory.create(AboutInfo.class);
         SETTINGS = ConfigFactory.create(ServerSettings.class);
+
+	    VERSION_INFO = new HashMap<>();
+	    VERSION_INFO.put("version", ABOUT.version());
+	    VERSION_INFO.put("build", String.valueOf(ABOUT.build()));
+	    VERSION_INFO.put("build-date", ABOUT.buildDate());
+
+	    VERSION_INFO_JSON = GSON.toJson(VERSION_INFO);
     }
 
     public static void main(String[] args) {
@@ -49,10 +62,15 @@ public class SimpleGalleryServer {
 
         checkSettingsFile();
 
+	    DateTimeZone zone = DateTimeZone.forID(SETTINGS.timezone());
+	    DateTimeZone.setDefault(zone);
+
         tempDir.getPath().toFile().mkdirs();
         tempDir.deleteOnExit();
 
         processResources();
+
+	    setupDatabase();
 
         Spark.port(SETTINGS.port());
 
@@ -157,4 +175,14 @@ public class SimpleGalleryServer {
             System.exit(-1);
         }
     }
+
+    private static void setupDatabase() {
+	    DATABASE_MANAGER.init();
+	    DATABASE_MANAGER.load();
+	    DATABASE_MANAGER.connect();
+    }
+
+	public static Database getDatabase() {
+		return DATABASE_MANAGER.getDatabase();
+	}
 }
