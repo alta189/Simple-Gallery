@@ -1,7 +1,9 @@
 package com.alta189.simple.gallery;
 
 import com.alta189.simple.gallery.objects.Album;
+import com.alta189.simple.gallery.objects.EmailConfirm;
 import com.alta189.simple.gallery.objects.Image;
+import com.alta189.simple.gallery.objects.User;
 import com.alta189.simplesave.Database;
 import com.alta189.simplesave.DatabaseFactory;
 import com.alta189.simplesave.exceptions.ConnectionException;
@@ -24,6 +26,8 @@ public class DatabaseManager {
 		try {
 			database.registerTable(Album.class);
 			database.registerTable(Image.class);
+			database.registerTable(User.class);
+			database.registerTable(EmailConfirm.class);
 		} catch (TableRegistrationException e) {
 			e.printStackTrace();
 		}
