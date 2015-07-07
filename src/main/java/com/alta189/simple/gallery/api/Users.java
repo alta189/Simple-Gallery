@@ -48,7 +48,7 @@ public class Users {
 		EmailConfirm emailConfirm = EmailConfirm.generateNew(user.getId());
 		SimpleGalleryServer.getDatabase().save(emailConfirm);
 
-		// TODO send email conformation
+		// TODO send email confirmation
 
 		return SimpleGalleryConstants.Results.SUCCESS;
 	}
