@@ -39,7 +39,6 @@
         <version.pegdown>1.5.0</version.pegdown>
         <version.sendgrid>2.2.1</version.sendgrid>
         <version.joda-time>2.5</version.joda-time>
-        <version.zip4j>1.3.2</version.zip4j>
 
         <version.simplesave>1.3.0</version.simplesave>
         <version.h2>1.4.184</version.h2>
@@ -133,13 +132,6 @@
             <groupId>org.aeonbits.owner</groupId>
             <artifactId>owner</artifactId>
             <version>${version.owner}</version>
-        </dependency>
-
-        <!-- zip4j -->
-        <dependency>
-            <groupId>net.lingala.zip4j</groupId>
-            <artifactId>zip4j</artifactId>
-            <version>${version.zip4j}</version>
         </dependency>
 
         <!-- Pegdown - Markdown Processor -->
