@@ -8,7 +8,6 @@ import com.alta189.simplesave.Table;
 import com.google.gson.annotations.Expose;
 import org.joda.time.DateTime;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Table("fields")
@@ -24,7 +23,10 @@ public class Album {
 	private String subtitle;
 	@Field
 	@Expose
-	private DateTime uploaded;
+	private DateTime created;
+	@Field
+	@Expose
+	private boolean hidden;
 	@Expose
 	private List<Image> images;
 
@@ -53,11 +55,23 @@ public class Album {
 		this.subtitle = subtitle;
 	}
 
-	public DateTime getUploaded() {
-		return uploaded;
+	public DateTime getCreated() {
+		return created;
 	}
 
-	public void setUploaded(DateTime uploaded) {
-		this.uploaded = uploaded;
+	public void setCreated(DateTime created) {
+		this.created = created;
+	}
+
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
+	}
+
+	public List<Image> getImages() {
+		return images;
 	}
 }

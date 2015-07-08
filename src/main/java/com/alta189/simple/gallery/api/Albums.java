@@ -29,7 +29,7 @@ public class Albums {
 		Album album = new Album();
 		album.setTitle(title);
 		album.setSubtitle(request.queryParams("subtitle"));
-		album.setUploaded(DateTime.now());
+		album.setCreated(DateTime.now());
 		SimpleGalleryServer.getDatabase().save(album);
 
 		return Result.wrap(album);

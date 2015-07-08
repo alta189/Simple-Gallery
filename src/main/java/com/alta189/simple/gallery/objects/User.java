@@ -23,10 +23,7 @@ public class User {
 	private boolean verifiedEmail = false;
 	@Field
 	@Expose
-	private boolean verified = false;
-	@Field
-	@Expose
-	private boolean admin = false;
+	private UserRole role = UserRole.GUEST;
 
 	public int getId() {
 		return id;
@@ -64,19 +61,11 @@ public class User {
 		this.verifiedEmail = verifiedEmail;
 	}
 
-	public boolean isVerified() {
-		return verified;
+	public UserRole getRole() {
+		return role;
 	}
 
-	public void setVerified(boolean verified) {
-		this.verified = verified;
-	}
-
-	public boolean isAdmin() {
-		return admin;
-	}
-
-	public void setAdmin(boolean admin) {
-		this.admin = admin;
+	public void setRole(UserRole role) {
+		this.role = role;
 	}
 }
