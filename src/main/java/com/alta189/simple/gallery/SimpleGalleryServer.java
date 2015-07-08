@@ -8,6 +8,8 @@ import com.alta189.simplesave.Database;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.aeonbits.owner.ConfigFactory;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -25,10 +27,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.alta189.simple.gallery.SimpleGalleryConstants.FileLocations.*;
+import static com.alta189.simple.gallery.SimpleGalleryConstants.Settings.*;
 
 public class SimpleGalleryServer {
     public static AboutInfo ABOUT;
-    public static ServerSettings SETTINGS;
+	public static XMLConfiguration SETTINGS;
     public static final Gson GSON = new GsonBuilder()
             .excludeFieldsWithoutExposeAnnotation()
             .serializeNulls()
@@ -43,7 +46,6 @@ public class SimpleGalleryServer {
 
     static {
         ABOUT = ConfigFactory.create(AboutInfo.class);
-        SETTINGS = ConfigFactory.create(ServerSettings.class);
 
 	    VERSION_INFO = new HashMap<>();
 	    VERSION_INFO.put("version", ABOUT.version());
@@ -58,8 +60,13 @@ public class SimpleGalleryServer {
         printBanner(start);
 
         checkSettingsFile();
+	    try {
+		    SETTINGS = new XMLConfiguration(SETTINGS_FILE);
+	    } catch (ConfigurationException e) {
+		    throw new RuntimeException(e);
+	    }
 
-	    DateTimeZone zone = DateTimeZone.forID(SETTINGS.timezone());
+	    DateTimeZone zone = DateTimeZone.forID(SETTINGS.getString(Keys.SERVER_TIMEZONE, Defaults.SERVER_TIMEZONE));
 	    DateTimeZone.setDefault(zone);
 
         TEMP_DIRECTORY.getPath().toFile().mkdirs();
@@ -74,7 +81,7 @@ public class SimpleGalleryServer {
 
 	    setupDatabase();
 
-        Spark.port(SETTINGS.port());
+        Spark.port(SETTINGS.getInt(Keys.SERVER_PORT, Defaults.SERVER_PORT));
 	    Spark.externalStaticFileLocation("public");
 
 	    AutoSpark autoSpark = new AutoSpark();
@@ -99,11 +106,10 @@ public class SimpleGalleryServer {
     }
 
     private static void checkSettingsFile() {
-        File settingsFile = new File("server.properties");
-        if (!settingsFile.exists()) {
+        if (!SETTINGS_FILE.exists()) {
             try {
-                String contents = IOUtils.toString(new ClassPathResource("server.properties").getInputStream());
-                FileUtils.writeStringToFile(settingsFile, contents);
+                String contents = IOUtils.toString(new ClassPathResource(SETTINGS_FILE.getName()).getInputStream());
+                FileUtils.writeStringToFile(SETTINGS_FILE, contents);
             } catch (IOException e) {
                 e.printStackTrace();
             }

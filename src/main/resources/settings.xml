@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+    <server>
+        <port>8080</port>
+        <timezone>EST5EDT</timezone>
+    </server>
+    <gallery>
+        <name>Simple Gallery</name>
+        <description>Simple gallery example</description>
+    </gallery>
+    <email>
+        <sendgrid>
+            <username></username>
+            <password></password>
+            <apikey></apikey>
+        </sendgrid>
+        <address>
+            <email-validation>noreply@example.com</email-validation>
+            <forgot-password>noreply@example.com</forgot-password>
+            <contact-us>support@example.com</contact-us>
+        </address>
+    </email>
+</settings>
