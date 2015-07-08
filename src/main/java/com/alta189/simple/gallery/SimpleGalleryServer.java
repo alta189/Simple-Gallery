@@ -3,6 +3,7 @@ package com.alta189.simple.gallery;
 import com.alta189.auto.spark.AutoSpark;
 import com.alta189.simple.gallery.api.Images;
 import com.alta189.simple.gallery.objects.Result;
+import com.alta189.simple.gallery.objects.User;
 import com.alta189.simple.gallery.utils.DateTimeTypeConverter;
 import com.alta189.simplesave.Database;
 import com.google.gson.Gson;
@@ -66,6 +67,8 @@ public class SimpleGalleryServer {
 		    throw new RuntimeException(e);
 	    }
 
+	    MailManager.getInstance().checkTemplates();
+
 	    DateTimeZone zone = DateTimeZone.forID(SETTINGS.getString(Keys.SERVER_TIMEZONE, Defaults.SERVER_TIMEZONE));
 	    DateTimeZone.setDefault(zone);
 
@@ -80,6 +83,10 @@ public class SimpleGalleryServer {
 	    Images.setInstance(new Images(uploadDir));
 
 	    setupDatabase();
+
+	    if (SETTINGS.getBoolean("dev", true)) {
+		    getDatabase().clear(User.class);
+	    }
 
         Spark.port(SETTINGS.getInt(Keys.SERVER_PORT, Defaults.SERVER_PORT));
 	    Spark.externalStaticFileLocation("public");

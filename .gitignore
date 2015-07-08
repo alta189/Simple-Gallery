@@ -142,3 +142,4 @@ crashlytics-build.properties
 /settings.xml
 dependency-reduced-pom.xml
 /data
+/templates

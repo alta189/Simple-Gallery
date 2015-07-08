@@ -3,6 +3,7 @@ package com.alta189.simple.gallery;
 import com.alta189.simple.gallery.objects.Album;
 import com.alta189.simple.gallery.objects.EmailConfirm;
 import com.alta189.simple.gallery.objects.Image;
+import com.alta189.simple.gallery.objects.PasswordReset;
 import com.alta189.simple.gallery.objects.User;
 import com.alta189.simplesave.Database;
 import com.alta189.simplesave.DatabaseFactory;
@@ -28,6 +29,7 @@ public class DatabaseManager {
 			database.registerTable(Image.class);
 			database.registerTable(User.class);
 			database.registerTable(EmailConfirm.class);
+			database.registerTable(PasswordReset.class);
 		} catch (TableRegistrationException e) {
 			e.printStackTrace();
 		}

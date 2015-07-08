@@ -210,6 +210,8 @@
                 <filtering>false</filtering>
                 <includes>
                     <include>logback.xml</include>
+                    <include>public/**</include>
+                    <include>templates/**</include>
                 </includes>
                 <targetPath>.</targetPath>
             </resource>

@@ -7,6 +7,8 @@
     <gallery>
         <name>Simple Gallery</name>
         <description>Simple gallery example</description>
+        <host>http://localhost</host>
+        <webadmin>Simple Gallery Team</webadmin>
     </gallery>
     <email>
         <sendgrid>
@@ -19,5 +21,9 @@
             <forgot-password>noreply@example.com</forgot-password>
             <contact-us>support@example.com</contact-us>
         </address>
+        <subject>
+            <email-validation>Validate Your Email Address</email-validation>
+            <forgot-password>Password Reset</forgot-password>
+        </subject>
     </email>
 </settings>
