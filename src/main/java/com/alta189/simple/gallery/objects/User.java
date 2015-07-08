@@ -22,7 +22,6 @@ public class User {
 	@Expose
 	private boolean verifiedEmail = false;
 	@Field
-	@Expose
 	private UserRole role = UserRole.GUEST;
 
 	public int getId() {

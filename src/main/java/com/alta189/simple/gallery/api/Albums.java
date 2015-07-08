@@ -14,6 +14,8 @@ import org.joda.time.DateTime;
 import spark.Request;
 import spark.Response;
 
+import java.util.List;
+
 @Controller
 @ResourceMapping("/api/albums")
 @Transformer(ResultTransformer.class)
@@ -33,6 +35,16 @@ public class Albums {
 		SimpleGalleryServer.getDatabase().save(album);
 
 		return Result.wrap(album);
+	}
+
+	@ResourceMapping("/get")
+	public Result getAll(Request request, Response response) {
+		List<Album> albums = SimpleGalleryServer.getDatabase().select(Album.class).where().equal("hidden", false).execute().find();
+		if (albums.size() <= 0) {
+			return Result.error("no albums found");
+		}
+
+		return Result.wrap(albums);
 	}
 
 	@ResourceMapping("/get/:id")
