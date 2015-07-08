@@ -60,7 +60,7 @@ public class Images {
 		}
 
 		String fileName = UUID.randomUUID().toString()+ "." + FilenameUtils.getExtension(item.getName());
-		item.write(new File(SimpleGalleryServer.IMAGES_DIRECTORY, fileName));
+		item.write(new File(SimpleGalleryConstants.FileLocations.IMAGES_DIRECTORY, fileName));
 
 		String description = null;
 		if (desc != null) {

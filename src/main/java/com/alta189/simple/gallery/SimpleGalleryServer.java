@@ -4,12 +4,9 @@ import com.alta189.auto.spark.AutoSpark;
 import com.alta189.simple.gallery.api.Images;
 import com.alta189.simple.gallery.objects.Result;
 import com.alta189.simple.gallery.utils.DateTimeTypeConverter;
-import com.alta189.simple.gallery.utils.HashUtils;
-import com.alta189.simple.gallery.utils.TempDirectory;
 import com.alta189.simplesave.Database;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.lingala.zip4j.core.ZipFile;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
@@ -24,9 +21,10 @@ import spark.utils.IOUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.alta189.simple.gallery.SimpleGalleryConstants.FileLocations.*;
 
 public class SimpleGalleryServer {
     public static AboutInfo ABOUT;
@@ -38,9 +36,6 @@ public class SimpleGalleryServer {
             .registerTypeAdapter(DateTime.class, new DateTimeTypeConverter())
             .create();
     public static final DateTimeFormatter DATE_FORMAT = DateTimeFormat.forPattern("MM/dd/yyyy hh:mm:ss aa");
-    public static final TempDirectory TEMP_DIRECTORY = new TempDirectory("simple-gallery-");
-    public static final File PUBLIC_DIRECTORY = new File("public");
-	public static final File IMAGES_DIRECTORY = new File(PUBLIC_DIRECTORY, "images");
 	public static final DatabaseManager DATABASE_MANAGER = new DatabaseManager();
     private static final Logger logger = LoggerFactory.getLogger(SimpleGalleryServer.class);
 	public static Map<String, String> VERSION_INFO;
