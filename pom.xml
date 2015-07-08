@@ -36,6 +36,8 @@
         <version.google.guava>18.0</version.google.guava>
 
         <version.owner>1.0.8</version.owner>
+        <version.pegdown>1.5.0</version.pegdown>
+        <version.sendgrid>2.2.1</version.sendgrid>
         <version.joda-time>2.5</version.joda-time>
         <version.zip4j>1.3.2</version.zip4j>
 
@@ -107,7 +109,6 @@
             <version>${version.commons.validator}</version>
         </dependency>
 
-
         <!-- Joda Time -->
         <dependency>
             <groupId>joda-time</groupId>
@@ -139,6 +140,20 @@
             <groupId>net.lingala.zip4j</groupId>
             <artifactId>zip4j</artifactId>
             <version>${version.zip4j}</version>
+        </dependency>
+
+        <!-- Pegdown - Markdown Processor -->
+        <dependency>
+            <groupId>org.pegdown</groupId>
+            <artifactId>pegdown</artifactId>
+            <version>${version.pegdown}</version>
+        </dependency>
+
+        <!-- SendGrid - Email -->
+        <dependency>
+            <groupId>com.sendgrid</groupId>
+            <artifactId>sendgrid-java</artifactId>
+            <version>${version.sendgrid}</version>
         </dependency>
 
         <!-- Database Dependencies -->
@@ -251,5 +266,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
