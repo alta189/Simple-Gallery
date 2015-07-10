@@ -55,7 +55,7 @@ public class PageServ {
 		System.out.println();
 		Map<String, String> model = getBaseModel();
 
-		return new ModelAndView(model, "reset-password.ftl");
+		return new ModelAndView(model, "forgot-password.ftl");
 	}
 
 	@ResourceMapping("/reset/:user/:key")

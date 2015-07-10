@@ -72,6 +72,6 @@
 		</div>
 	</div>
 	<script src="js/side-nav.js"></script>
-	<script src="js/signin.js"></script>
+	<script src="js/forgot.js"></script>
 </body>
 </html>

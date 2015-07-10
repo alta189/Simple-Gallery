@@ -15,7 +15,6 @@ import com.alta189.simple.gallery.objects.User;
 import com.alta189.simple.gallery.utils.PasswordUtils;
 import com.alta189.simple.gallery.utils.UserUtils;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -179,14 +178,14 @@ public class Users {
 		return SimpleGalleryConstants.Results.SUCCESS;
 	}
 
-	@ResourceMapping("/reset")
+	@ResourceMapping(value = "/reset", method = RequestMethod.POST)
 	public Result reset(Request request, Response response) {
 		String email = request.queryParams("email");
 		String key = request.queryParams("key");
 		String password = request.queryParams("password");
 		String confirm = request.queryParams("confirm");
 
-		if (email == null || StringUtils.isEmpty(email) || EmailValidator.getInstance().isValid(email)) {
+		if (email == null || StringUtils.isEmpty(email) || !EmailValidator.getInstance().isValid(email)) {
 			return Result.error("Invalid Email");
 		}
 

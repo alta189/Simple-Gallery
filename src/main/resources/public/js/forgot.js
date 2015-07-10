@@ -1,17 +1,11 @@
-function reset() {
+function forgot() {
 	var email = $("#email").val();
-	var password = $("#password").val();
-	var confirm = $("#confirm").val();
-	var key = $("#key").val();
 	var data = {
-		email: email,
-		password: password,
-		confirm: confirm,
-		key: key
+		email: email
 	};
 	$.ajax({
 		type: 'POST',
-		url: "/api/users/reset",
+		url: "/api/users/forgot",
 		dataType: 'json',
 		data: data,
 		cache: false,
@@ -23,21 +17,21 @@ function reset() {
 				if (!location.origin) {
 					location.origin = location.protocol + "//" + location.host;
 				}
-				$.cookie("message", "Password Reset Successfully!");
+				$.cookie("message", "Reset Password Email Sent!");
 				$.cookie("message_style", "success");
-				window.location.href = location.origin + "/signin";
+				window.location.href = location.origin + "/";
 			}
 		},
 		error: function (obj, status, xhr) {
 			console.log(obj);
-			UIkit.notify("Internal Error: Could not Reset Password", { status  : 'danger', pos: 'top-right' });
+			UIkit.notify("Internal Error: Could not Sign In", { status  : 'danger', pos: 'top-right' });
 		}
 	});
 }
 
 $(function () {
-	$("#reset-form").on("submit", function (event) {
-		reset();
+	$("#forgot-form").on("submit", function (event) {
+		forgot();
 		event.preventDefault();
 	});
 });

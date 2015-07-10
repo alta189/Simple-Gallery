@@ -3,16 +3,16 @@
 <head>
 	<meta charset="utf-8">
 	<title>${gallery_name} | Reset Password</title>
-	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-	<link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
-	<link rel="stylesheet" href="css/uikit.almost-flat.min.css">
-	<link rel="stylesheet" href="css/components/notify.min.css">
-	<link rel="stylesheet" href="css/sticky.css">
-	<link rel="stylesheet" href="css/gallery.css">
+	<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon.png">
+	<link rel="stylesheet" href="/css/uikit.almost-flat.min.css">
+	<link rel="stylesheet" href="/css/components/notify.min.css">
+	<link rel="stylesheet" href="/css/sticky.css">
+	<link rel="stylesheet" href="/css/gallery.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-	<script src="js/uikit.min.js"></script>
-	<script src="js/components/notify.min.js"></script>
+	<script src="/js/uikit.min.js"></script>
+	<script src="/js/components/notify.min.js"></script>
 </head>
 <body class="uk-height-1-1">
 	<div id="sticky-anchor"></div>
@@ -78,7 +78,7 @@
 			</form>
 		</div>
 	</div>
-	<script src="js/side-nav.js"></script>
-	<script src="js/reset.js"></script>
+	<script src="/js/side-nav.js"></script>
+	<script src="/js/reset.js"></script>
 </body>
 </html>
