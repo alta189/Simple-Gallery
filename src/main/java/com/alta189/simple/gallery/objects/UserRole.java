@@ -8,6 +8,7 @@ public enum UserRole {
 	ADMINISTRATOR(100);
 
 	private final int value;
+
 	UserRole(final int value) {
 		this.value = value;
 	}

@@ -21,20 +21,23 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import static com.alta189.simple.gallery.SimpleGalleryConstants.FileLocations.*;
-import static com.alta189.simple.gallery.SimpleGalleryConstants.Settings.*;
-import static com.alta189.simple.gallery.SimpleGalleryConstants.Templates.*;
+import static com.alta189.simple.gallery.SimpleGalleryConstants.FileLocations.TEMPLATES_DIRECTORY;
+import static com.alta189.simple.gallery.SimpleGalleryConstants.Settings.Defaults;
+import static com.alta189.simple.gallery.SimpleGalleryConstants.Settings.Keys;
+import static com.alta189.simple.gallery.SimpleGalleryConstants.Templates.EMAIL_VERIFICATION;
+import static com.alta189.simple.gallery.SimpleGalleryConstants.Templates.RESET_PASSWORD;
+import static com.alta189.simple.gallery.SimpleGalleryConstants.Templates.Variables;
 
 public class MailManager {
 	private final static MailManager instance = new MailManager();
 	private static final Logger logger = LoggerFactory.getLogger(MailManager.class);
 	private final PegDownProcessor pegDownProcessor = new PegDownProcessor(Extensions.ALL);
 
-	public static MailManager getInstance() {
-		return instance;
+	private MailManager() {
 	}
 
-	private MailManager() {
+	public static MailManager getInstance() {
+		return instance;
 	}
 
 	protected void checkTemplates() {
@@ -103,13 +106,17 @@ public class MailManager {
 
 	public Map<String, String> generateStandardVariables() {
 		Map<String, String> result = new HashMap<>();
-		result.put(Variables.GALLERY_NAME, SimpleGalleryServer.SETTINGS.getString(Keys.GALLERY_NAME, Defaults.GALLERY_NAME));
-		result.put(Variables.GALLERY_DESCRIPTION, SimpleGalleryServer.SETTINGS.getString(Keys.GALLERY_DESCRIPTION, Defaults.GALLERY_DESCRIPTION));
-		result.put(Variables.GALLERY_HOST, SimpleGalleryServer.SETTINGS.getString(Keys.GALLERY_HOST, Defaults.GALLERY_HOST));
-		result.put(Variables.GALLERY_WEBADMIN, SimpleGalleryServer.SETTINGS.getString(Keys.GALLERY_WEBADMIN, Defaults.GALLERY_WEBADMIN));
-		result.put(Variables.EMAIL_CONTACT_US, SimpleGalleryServer.SETTINGS.getString(Keys.EMAIL_ADDRESS_CONTACT_US));
-		result.put(Variables.NOW, DateTime.now().toString(SimpleGalleryServer.DATE_FORMAT));
+		put(result, Variables.GALLERY_NAME, SimpleGalleryServer.SETTINGS.getString(Keys.GALLERY_NAME, Defaults.GALLERY_NAME));
+		put(result, Variables.GALLERY_DESCRIPTION, SimpleGalleryServer.SETTINGS.getString(Keys.GALLERY_DESCRIPTION, Defaults.GALLERY_DESCRIPTION));
+		put(result, Variables.GALLERY_HOST, SimpleGalleryServer.SETTINGS.getString(Keys.GALLERY_HOST, Defaults.GALLERY_HOST));
+		put(result, Variables.GALLERY_WEBADMIN, SimpleGalleryServer.SETTINGS.getString(Keys.GALLERY_WEBADMIN, Defaults.GALLERY_WEBADMIN));
+		put(result, Variables.EMAIL_CONTACT_US, SimpleGalleryServer.SETTINGS.getString(Keys.EMAIL_ADDRESS_CONTACT_US));
+		put(result, Variables.NOW, DateTime.now().toString(SimpleGalleryServer.DATE_FORMAT));
 		return result;
+	}
+
+	private void put(Map<String, String> map, String key, String value) {
+		map.put("{{" + key + "}}", value);
 	}
 
 	public String renderTemplate(File template, Map<String, String> variables) {

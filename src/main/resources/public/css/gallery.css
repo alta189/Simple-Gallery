@@ -1,0 +1,10 @@
+.wordwrap {   
+   word-wrap: break-word;      /* IE */
+}
+.pinned-bottom {
+	bottom: 0;
+	position: absolute;
+}
+.hidden {
+	display: none;
+}

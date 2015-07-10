@@ -14,12 +14,10 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import spark.Request;
 import spark.Response;
 
-import javax.servlet.http.Part;
 import java.io.File;
 import java.util.List;
 import java.util.UUID;
@@ -59,7 +57,7 @@ public class Images {
 		} catch (Exception ignored) {
 		}
 
-		String fileName = UUID.randomUUID().toString()+ "." + FilenameUtils.getExtension(item.getName());
+		String fileName = UUID.randomUUID().toString() + "." + FilenameUtils.getExtension(item.getName());
 		item.write(new File(SimpleGalleryConstants.FileLocations.IMAGES_DIRECTORY, fileName));
 
 		String description = null;

@@ -62,16 +62,16 @@ public class Album {
 		return SimpleGalleryServer.getDatabase().select(User.class).where().equal("id", user).execute().findOne();
 	}
 
+	public void setUser(int user) {
+		this.user = user;
+	}
+
 	public int getUserId() {
 		return user;
 	}
 
 	public void setUser(User user) {
 		this.user = user.getId();
-	}
-
-	public void setUser(int user) {
-		this.user = user;
 	}
 
 	public DateTime getCreated() {
