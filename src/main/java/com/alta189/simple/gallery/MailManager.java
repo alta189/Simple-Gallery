@@ -68,9 +68,9 @@ public class MailManager {
 		email.setSubject(SimpleGalleryServer.SETTINGS.getString(Keys.EMAIL_SUBJECT_EMAIL_VALIDATION));
 
 		Map<String, String> variables = generateStandardVariables();
-		variables.put(Variables.RESET_PASSWORD_LINK, getPasswordResetLink(passwordReset));
-		variables.put(Variables.USER_NAME, user.getName());
-		variables.put(Variables.USER_EMAIL, user.getEmail());
+		put(variables, Variables.RESET_PASSWORD_LINK, getPasswordResetLink(passwordReset));
+		put(variables, Variables.USER_NAME, user.getName());
+		put(variables, Variables.USER_EMAIL, user.getEmail());
 
 		String renderedHtml = renderTemplate(RESET_PASSWORD, variables);
 
@@ -90,9 +90,9 @@ public class MailManager {
 		email.setSubject(SimpleGalleryServer.SETTINGS.getString(Keys.EMAIL_SUBJECT_EMAIL_VALIDATION));
 
 		Map<String, String> variables = generateStandardVariables();
-		variables.put(Variables.EMAIL_VERIFICATION_LINK, getEmailVerificationLink(confirm));
-		variables.put(Variables.USER_NAME, user.getName());
-		variables.put(Variables.USER_EMAIL, user.getEmail());
+		put(variables, Variables.EMAIL_VERIFICATION_LINK, getEmailVerificationLink(confirm));
+		put(variables, Variables.USER_NAME, user.getName());
+		put(variables, Variables.USER_EMAIL, user.getEmail());
 
 		String renderedHtml = renderTemplate(EMAIL_VERIFICATION, variables);
 
