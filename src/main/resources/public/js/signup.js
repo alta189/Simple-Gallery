@@ -27,9 +27,12 @@ function signup() {
 				if (!location.origin) {
 					location.origin = location.protocol + "//" + location.host;
 				}
-				$.cookie("message", "Signed Up Successfully!");
-				$.cookie("message_style", "success");
-				window.location.href = location.origin + "/";
+				messages.send({
+					message: "Signed Up Successfully!",
+					style: "success"
+				}, function () {
+					window.location.href = location.origin + "/";
+				});
 			}
 		},
 		error: function (obj, status, xhr) {

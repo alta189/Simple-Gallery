@@ -25,13 +25,4 @@ public class UserUtils {
 		request.session(true);
 		request.session().removeAttribute("user-id");
 	}
-
-	public static void message(Response response, String message) {
-		message(response, message, "info");
-	}
-
-	public static void message(Response response, String message, String style) {
-		response.cookie("message", message);
-		response.cookie("message_style", style);
-	}
 }

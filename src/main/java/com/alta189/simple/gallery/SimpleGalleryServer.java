@@ -2,9 +2,13 @@ package com.alta189.simple.gallery;
 
 import com.alta189.auto.spark.AutoSpark;
 import com.alta189.simple.gallery.api.Images;
+import com.alta189.simple.gallery.objects.Message;
+import com.alta189.simple.gallery.objects.MessagePosition;
+import com.alta189.simple.gallery.objects.MessageStyle;
 import com.alta189.simple.gallery.objects.Result;
-import com.alta189.simple.gallery.objects.User;
 import com.alta189.simple.gallery.utils.DateTimeTypeConverter;
+import com.alta189.simple.gallery.utils.MessagePositionTypeAdapter;
+import com.alta189.simple.gallery.utils.MessageStyleTypeAdapter;
 import com.alta189.simplesave.Database;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -39,6 +43,8 @@ public class SimpleGalleryServer {
 			.serializeNulls()
 			.setDateFormat("MM/dd/yyyy hh:mm:ss aa")
 			.registerTypeAdapter(DateTime.class, new DateTimeTypeConverter())
+			.registerTypeAdapter(MessagePosition.class, new MessagePositionTypeAdapter<>())
+			.registerTypeAdapter(MessageStyle.class, new MessageStyleTypeAdapter<>())
 			.create();
 	public static final DateTimeFormatter DATE_FORMAT = DateTimeFormat.forPattern("MM/dd/yyyy hh:mm:ss aa");
 	public static final DatabaseManager DATABASE_MANAGER = new DatabaseManager();
@@ -94,7 +100,6 @@ public class SimpleGalleryServer {
 		AutoSpark autoSpark = new AutoSpark();
 		autoSpark.run();
 
-		Spark.awaitInitialization();
 		System.out.println("INITIALIZED");
 	}
 
@@ -131,6 +136,9 @@ public class SimpleGalleryServer {
 		DATABASE_MANAGER.init();
 		DATABASE_MANAGER.load();
 		DATABASE_MANAGER.connect();
+
+		// Clear Messages because all previous session ids are invalid
+		DATABASE_MANAGER.getDatabase().clear(Message.class);
 	}
 
 	public static Database getDatabase() {

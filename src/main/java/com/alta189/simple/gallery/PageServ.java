@@ -3,8 +3,11 @@ package com.alta189.simple.gallery;
 import com.alta189.auto.spark.Controller;
 import com.alta189.auto.spark.ResourceMapping;
 import com.alta189.auto.spark.TemplateEngine;
+import com.alta189.simple.gallery.objects.MessagePosition;
+import com.alta189.simple.gallery.objects.MessageStyle;
 import com.alta189.simple.gallery.objects.PasswordReset;
 import com.alta189.simple.gallery.objects.User;
+import com.alta189.simple.gallery.utils.MessageBuilder;
 import com.alta189.simple.gallery.utils.UserUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
@@ -46,7 +49,7 @@ public class PageServ {
 	@TemplateEngine(ignoreParent = true)
 	public void signout(Request request, Response response) {
 		UserUtils.signOut(request);
-		UserUtils.message(response, "Signed Out Successfully");
+		MessageBuilder.get(request).setMessage("Signed Out Successfully!").setStyle(MessageStyle.SUCCESS).setPosition(MessagePosition.TOP_RIGHT).save();
 		response.redirect("/");
 	}
 
@@ -65,21 +68,21 @@ public class PageServ {
 		String key = request.params("key");
 
 		if (userId <= 0 || StringUtils.isEmpty(key)) {
-			UserUtils.message(response, "Invalid Request", "danger");
+			MessageBuilder.get(request).setMessage("Invalid Request!").setStyle(MessageStyle.DANGER).setPosition(MessagePosition.TOP_RIGHT).save();
 			response.redirect("/");
 			return null;
 		}
 
 		PasswordReset passwordReset = SimpleGalleryServer.getDatabase().select(PasswordReset.class).where().equal("key", key).and().equal("user", userId).execute().findOne();
 		if (passwordReset == null) {
-			UserUtils.message(response, "Invalid Request", "danger");
+			MessageBuilder.get(request).setMessage("Invalid Request!").setStyle(MessageStyle.DANGER).setPosition(MessagePosition.TOP_RIGHT).save();
 			response.redirect("/");
 			return null;
 		}
 
 		User user = SimpleGalleryServer.getDatabase().select(User.class).where().equal("id", userId).execute().findOne();
 		if (user == null) {
-			UserUtils.message(response, "Invalid Request", "danger");
+			MessageBuilder.get(request).setMessage("Invalid Request!").setStyle(MessageStyle.DANGER).setPosition(MessagePosition.TOP_RIGHT).save();
 			response.redirect("/");
 			return null;
 		}

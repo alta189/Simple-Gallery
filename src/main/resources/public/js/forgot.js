@@ -17,9 +17,12 @@ function forgot() {
 				if (!location.origin) {
 					location.origin = location.protocol + "//" + location.host;
 				}
-				$.cookie("message", "Reset Password Email Sent!");
-				$.cookie("message_style", "success");
-				window.location.href = location.origin + "/";
+				messages.send({
+					message: "Reset Password Email Sent!",
+					style: "success"
+				}, function () {
+					window.location.href = location.origin + "/";
+				});
 			}
 		},
 		error: function (obj, status, xhr) {

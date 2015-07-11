@@ -23,9 +23,12 @@ function reset() {
 				if (!location.origin) {
 					location.origin = location.protocol + "//" + location.host;
 				}
-				$.cookie("message", "Password Reset Successfully!");
-				$.cookie("message_style", "success");
-				window.location.href = location.origin + "/signin";
+				messages.send({
+					message: "Reset Password Successful!",
+					style: "success"
+				}, function () {
+					window.location.href = location.origin + "/signin";
+				});
 			}
 		},
 		error: function (obj, status, xhr) {
