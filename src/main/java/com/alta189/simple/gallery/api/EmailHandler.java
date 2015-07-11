@@ -13,6 +13,7 @@ import com.alta189.simple.gallery.utils.MessageBuilder;
 import com.alta189.simple.gallery.utils.UserUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.entity.ContentType;
 import spark.Request;
 import spark.Response;
 

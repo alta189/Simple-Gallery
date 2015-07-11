@@ -10,6 +10,7 @@ import com.alta189.simple.gallery.objects.Result;
 import com.alta189.simple.gallery.objects.ResultTransformer;
 import com.alta189.simple.gallery.utils.TitleUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.http.entity.ContentType;
 import org.joda.time.DateTime;
 import spark.Request;
 import spark.Response;
@@ -22,6 +23,8 @@ import java.util.List;
 public class Albums {
 	@ResourceMapping(value = "/create", method = RequestMethod.POST)
 	public Result create(Request request, Response response) {
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
 		String title = request.queryMap("title").value();
 		if (!TitleUtils.isValidTitle(title)) {
 			System.out.println("title = '" + title + "'");
@@ -39,6 +42,8 @@ public class Albums {
 
 	@ResourceMapping("/get")
 	public Result getAll(Request request, Response response) {
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
 		List<Album> albums = SimpleGalleryServer.getDatabase().select(Album.class).where().equal("hidden", false).execute().find();
 		if (albums.size() <= 0) {
 			return Result.error("no albums found");
@@ -49,6 +54,8 @@ public class Albums {
 
 	@ResourceMapping("/get/:id")
 	public Result get(Request request, Response response) {
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
 		int id = NumberUtils.toInt(request.params("id"), -1);
 		if (id <= 0) {
 			return Result.error("invalid album id");

@@ -15,6 +15,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.http.entity.ContentType;
 import spark.Request;
 import spark.Response;
 
@@ -43,6 +44,8 @@ public class Images {
 
 	@ResourceMapping(value = "/upload", method = RequestMethod.POST)
 	public Result upload(Request request, Response response) throws Exception {
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
 		ServletFileUpload fileUpload = new ServletFileUpload(factory);
 		List<FileItem> items = fileUpload.parseRequest(request.raw());
 		FileItem item = items.stream()
@@ -76,6 +79,8 @@ public class Images {
 
 	@ResourceMapping(value = "/album", method = RequestMethod.POST)
 	public Result setAlbum(Request request, Response response) {
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
 		int imageId = NumberUtils.toInt(request.queryParams("image_id"), -1);
 		int albumId = NumberUtils.toInt(request.queryParams("album_id"), -1);
 

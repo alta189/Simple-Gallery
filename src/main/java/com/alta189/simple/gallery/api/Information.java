@@ -7,6 +7,7 @@ import com.alta189.simple.gallery.SimpleGalleryServer;
 import com.alta189.simple.gallery.objects.Result;
 import com.alta189.simple.gallery.objects.ResultTransformer;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.entity.ContentType;
 import spark.Request;
 import spark.Response;
 
@@ -18,17 +19,23 @@ public class Information {
 
 	@ResourceMapping("/status")
 	public String status(Request request, Response response) {
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
 		return OK_STATUS;
 	}
 
 	@ResourceMapping("/version")
 	public String version(Request request, Response response) {
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
 		return SimpleGalleryServer.VERSION_INFO_JSON;
 	}
 
 	@ResourceMapping("/message")
 	@Transformer(ResultTransformer.class)
 	public Result message(Request request, Response response) {
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
 		request.session(true);
 		String message = request.session().attribute("message");
 		if (StringUtils.isEmpty(message)) {

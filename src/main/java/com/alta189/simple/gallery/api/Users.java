@@ -18,6 +18,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.apache.commons.validator.routines.EmailValidator;
+import org.apache.http.entity.ContentType;
 import spark.Request;
 import spark.Response;
 
@@ -29,6 +30,8 @@ import java.util.List;
 public class Users {
 	@ResourceMapping(value = "/signup", method = RequestMethod.POST)
 	public Result signup(Request request, Response response) {
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
 		User user = new User();
 		user.setEmail(request.queryParams("email"));
 		user.setName(request.queryParams("name"));
@@ -87,6 +90,8 @@ public class Users {
 
 	@ResourceMapping(value = {"/login", "/signin"}, method = RequestMethod.POST)
 	public Result login(Request request, Response response) {
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
 		String email = request.queryParams("email");
 		String pass = request.queryParams("password");
 
@@ -116,6 +121,8 @@ public class Users {
 
 	@ResourceMapping(value = "/resend", method = RequestMethod.POST)
 	public Result resend(Request request, Response response) {
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
 		String email = request.queryParams("email");
 
 		if (StringUtils.isEmpty(email) || StringUtils.isBlank(email) || !EmailValidator.getInstance().isValid(email)) {
@@ -148,6 +155,8 @@ public class Users {
 
 	@ResourceMapping(value = "/forgot", method = RequestMethod.POST)
 	public Result forgot(Request request, Response response) {
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
 		String email = request.queryParams("email");
 
 		if (StringUtils.isEmpty(email) || StringUtils.isBlank(email) || !EmailValidator.getInstance().isValid(email)) {
@@ -180,6 +189,8 @@ public class Users {
 
 	@ResourceMapping(value = "/reset", method = RequestMethod.POST)
 	public Result reset(Request request, Response response) {
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
 		String email = request.queryParams("email");
 		String key = request.queryParams("key");
 		String password = request.queryParams("password");
@@ -223,6 +234,8 @@ public class Users {
 
 	@ResourceMapping("/info")
 	public Result result(Request request, Response response) {
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
 		User user = UserUtils.getUser(request);
 		if (user == null) {
 			return Result.error("not logged in");
@@ -233,6 +246,8 @@ public class Users {
 
 	@ResourceMapping("/list")
 	public Result info(Request request, Response response) {
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
 		List<User> users = SimpleGalleryServer.getDatabase().select(User.class).execute().find();
 
 		return Result.wrap(users);

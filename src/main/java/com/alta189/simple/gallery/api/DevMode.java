@@ -12,6 +12,7 @@ import com.alta189.simple.gallery.objects.PasswordReset;
 import com.alta189.simple.gallery.objects.Result;
 import com.alta189.simple.gallery.objects.ResultTransformer;
 import com.alta189.simple.gallery.objects.User;
+import org.apache.http.entity.ContentType;
 import spark.Request;
 import spark.Response;
 
@@ -21,6 +22,8 @@ import spark.Response;
 public class DevMode {
 	@ResourceMapping("/clear/users")
 	public Result clearUsers(Request request, Response response) {
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
 		if (!isDevMode()) {
 			return Result.error("Not in Dev Mode");
 		}
@@ -30,6 +33,8 @@ public class DevMode {
 
 	@ResourceMapping("/clear/albums")
 	public Result clearAlbums(Request request, Response response) {
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
 		if (!isDevMode()) {
 			return Result.error("Not in Dev Mode");
 		}
@@ -39,6 +44,8 @@ public class DevMode {
 
 	@ResourceMapping("/clear/email")
 	 public Result clearEmail(Request request, Response response) {
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
 		if (!isDevMode()) {
 			return Result.error("Not in Dev Mode");
 		}
@@ -48,6 +55,8 @@ public class DevMode {
 
 	@ResourceMapping("/clear/pass")
 	public Result clearPass(Request request, Response response) {
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
 		if (!isDevMode()) {
 			return Result.error("Not in Dev Mode");
 		}
@@ -57,6 +66,8 @@ public class DevMode {
 
 	@ResourceMapping("/clear/image")
 	 public Result clearImage(Request request, Response response) {
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
 		if (!isDevMode()) {
 			return Result.error("Not in Dev Mode");
 		}
@@ -66,6 +77,8 @@ public class DevMode {
 
 	@ResourceMapping("/clear")
 	public Result clear(Request request, Response response) {
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
 		if (!isDevMode()) {
 			return Result.error("Not in Dev Mode");
 		}

@@ -11,6 +11,7 @@ import com.alta189.simple.gallery.objects.Result;
 import com.alta189.simple.gallery.objects.ResultTransformer;
 import com.alta189.simple.gallery.utils.MessageBuilder;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.entity.ContentType;
 import spark.Request;
 import spark.Response;
 
@@ -22,7 +23,8 @@ import java.util.List;
 public class Messages {
 	@ResourceMapping(value = "/create", accepts = "application/json", method = RequestMethod.PUT)
 	public Result create(Request request, Response response) {
-		response.type("application/json");
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
 		if (StringUtils.isEmpty(request.body()) || StringUtils.isBlank(request.body())) {
 			return Result.error("invalid request");
 		}
@@ -40,14 +42,16 @@ public class Messages {
 
 	@ResourceMapping("/list")
 	public Result list(Request request, Response response) {
-		response.type("application/json");
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
 		String sessionId = request.session(true).id();
 		return Result.wrap(SimpleGalleryServer.getDatabase().select(Message.class).where().equal("sessionId", sessionId).execute().find());
 	}
 
 	@ResourceMapping("/get")
 	public Result get(Request request, Response response) {
-		response.type("application/json");
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
 		String sessionId = request.session(true).id();
 		final List<Message> messages = SimpleGalleryServer.getDatabase().select(Message.class).where().equal("sessionId", sessionId).execute().find();
 
