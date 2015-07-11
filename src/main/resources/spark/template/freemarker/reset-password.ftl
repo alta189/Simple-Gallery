@@ -12,7 +12,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="/js/uikit.min.js"></script>
 	<script src="/js/components/notify.min.js"></script>
-	<script src="js/messages.js"></script>
+	<script src="/js/messages.js"></script>
 </head>
 <body class="uk-height-1-1">
 	<div id="sticky-anchor"></div>
