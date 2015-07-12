@@ -81,4 +81,8 @@ public class AuthenticationManager {
 			Spark.halt(403, AuthFilter.getInstance().getEngine().render(new ModelAndView(PageServ.getBaseModel(), "403.ftl")));
 		}
 	}
+
+	public boolean registeredControllerPath(String path) {
+		return paths.containsKey(path);
+	}
 }
