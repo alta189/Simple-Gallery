@@ -70,5 +70,6 @@ public class SimpleGalleryConstants {
 
 	public static class Results {
 		public static final Result SUCCESS = Result.wrap("success");
+		public static final Result ACCESS_DENIED = Result.error("Access Denied!");
 	}
 }

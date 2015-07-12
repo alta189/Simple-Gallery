@@ -5,9 +5,11 @@ import com.alta189.auto.spark.RequestMethod;
 import com.alta189.auto.spark.ResourceMapping;
 import com.alta189.auto.spark.Transformer;
 import com.alta189.simple.gallery.SimpleGalleryServer;
+import com.alta189.simple.gallery.auth.AccessRule;
 import com.alta189.simple.gallery.objects.Album;
 import com.alta189.simple.gallery.objects.Result;
 import com.alta189.simple.gallery.objects.ResultTransformer;
+import com.alta189.simple.gallery.objects.UserRole;
 import com.alta189.simple.gallery.utils.TitleUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.http.entity.ContentType;
@@ -21,6 +23,7 @@ import java.util.List;
 @ResourceMapping("/api/albums")
 @Transformer(ResultTransformer.class)
 public class Albums {
+	@AccessRule(value = UserRole.VERIFIED, json = true)
 	@ResourceMapping(value = "/create", method = RequestMethod.POST)
 	public Result create(Request request, Response response) {
 		response.type(ContentType.APPLICATION_JSON.getMimeType());

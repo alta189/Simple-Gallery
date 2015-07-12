@@ -30,18 +30,4 @@ public class Information {
 
 		return SimpleGalleryServer.VERSION_INFO_JSON;
 	}
-
-	@ResourceMapping("/message")
-	@Transformer(ResultTransformer.class)
-	public Result message(Request request, Response response) {
-		response.type(ContentType.APPLICATION_JSON.getMimeType());
-
-		request.session(true);
-		String message = request.session().attribute("message");
-		if (StringUtils.isEmpty(message)) {
-			return Result.error("no messages");
-		}
-		request.session().removeAttribute("message");
-		return Result.wrap(message);
-	}
 }

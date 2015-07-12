@@ -2,6 +2,7 @@ package com.alta189.simple.gallery;
 
 import com.alta189.auto.spark.AutoSpark;
 import com.alta189.simple.gallery.api.Images;
+import com.alta189.simple.gallery.auth.AuthenticationManager;
 import com.alta189.simple.gallery.objects.Message;
 import com.alta189.simple.gallery.objects.MessagePosition;
 import com.alta189.simple.gallery.objects.MessageStyle;
@@ -53,6 +54,7 @@ public class SimpleGalleryServer {
 	public static XMLConfiguration SETTINGS;
 	public static Map<String, String> VERSION_INFO;
 	public static String VERSION_INFO_JSON;
+	public static AutoSpark AUTO_SPARK;
 
 	static {
 		ABOUT = ConfigFactory.create(AboutInfo.class);
@@ -97,8 +99,10 @@ public class SimpleGalleryServer {
 		Spark.externalStaticFileLocation("public");
 		Spark.staticFileLocation("public");
 
-		AutoSpark autoSpark = new AutoSpark();
-		autoSpark.run();
+		AUTO_SPARK = new AutoSpark();
+		AUTO_SPARK.run();
+
+		AuthenticationManager.getInstance().scan();
 
 		System.out.println("INITIALIZED");
 	}

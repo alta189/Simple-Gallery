@@ -6,10 +6,12 @@ import com.alta189.auto.spark.ResourceMapping;
 import com.alta189.auto.spark.Transformer;
 import com.alta189.simple.gallery.SimpleGalleryConstants;
 import com.alta189.simple.gallery.SimpleGalleryServer;
+import com.alta189.simple.gallery.auth.AccessRule;
 import com.alta189.simple.gallery.objects.Album;
 import com.alta189.simple.gallery.objects.Image;
 import com.alta189.simple.gallery.objects.Result;
 import com.alta189.simple.gallery.objects.ResultTransformer;
+import com.alta189.simple.gallery.objects.UserRole;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -42,6 +44,7 @@ public class Images {
 		Images.instance = instance;
 	}
 
+	@AccessRule(value = UserRole.VERIFIED, json = true)
 	@ResourceMapping(value = "/upload", method = RequestMethod.POST)
 	public Result upload(Request request, Response response) throws Exception {
 		response.type(ContentType.APPLICATION_JSON.getMimeType());

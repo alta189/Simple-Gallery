@@ -38,7 +38,7 @@ public class PageServ {
 		return new ModelAndView(model, "signin.ftl");
 	}
 
-	@ResourceMapping({"signup", "/signup.*"})
+	@ResourceMapping({"/signup", "/signup.*"})
 	public ModelAndView signup(Request request, Response response) {
 		Map<String, String> model = getBaseModel();
 
@@ -94,7 +94,21 @@ public class PageServ {
 		return new ModelAndView(model, "reset-password.ftl");
 	}
 
-	private Map<String, String> getBaseModel() {
+	@ResourceMapping({"/404", "/errors/404","/errors/404.html"})
+	public ModelAndView error404(Request request, Response response) {
+		Map<String, String> model = getBaseModel();
+
+		return new ModelAndView(model, "404.ftl");
+	}
+
+	@ResourceMapping("/403")
+	public ModelAndView error403(Request request, Response response) {
+		Map<String, String> model = getBaseModel();
+
+		return new ModelAndView(model, "403.ftl");
+	}
+
+	public static Map<String, String> getBaseModel() {
 		Map<String, String> result = new HashMap<>();
 		result.put(Variables.GALLERY_NAME, SimpleGalleryServer.SETTINGS.getString(SimpleGalleryConstants.Settings.Keys.GALLERY_NAME, SimpleGalleryConstants.Settings.Defaults.GALLERY_NAME));
 		result.put(Variables.GALLERY_DESCRIPTION, SimpleGalleryServer.SETTINGS.getString(SimpleGalleryConstants.Settings.Keys.GALLERY_DESCRIPTION, SimpleGalleryConstants.Settings.Defaults.GALLERY_DESCRIPTION));

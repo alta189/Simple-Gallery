@@ -2,7 +2,7 @@
 <html lang="en-gb" dir="ltr" class="uk-height-1-1">
 <head>
 	<meta charset="utf-8">
-	<title>${gallery_name} | Forgot Password</title>
+	<title>${gallery_name} | Sign In</title>
 	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 	<link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
 	<link rel="stylesheet" href="css/uikit.almost-flat.min.css">
@@ -57,21 +57,12 @@
 	</div>
 
 	<div class="uk-vertical-align uk-text-center uk-height-1-1">
-		<div class="uk-vertical-align-middle" style="width: 250px;">
-			<form class="uk-panel uk-panel-box uk-form" id="forgot-form">
-				<div class="uk-form-row">
-					<h4>Forgot Password?</h4>
-				</div>
-				<div class="uk-form-row">
-					<input class="uk-width-1-1 uk-form-large" type="text" id="email" placeholder="Email">
-				</div>
-				<div class="uk-form-row">
-					<button type="submit" class="uk-width-1-1 uk-button uk-button-primary uk-button-large">Send Password Reset</button>
-				</div>
-			</form>
+		<div class="uk-vertical-align-middle">
+			<h1>Page Not Found</h1>
+			<iframe src="//giphy.com/embed/KHAD55rYirYoU?html5=true" width="480" height="285" frameBorder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+			<h1><a href="/">Where da page at doe?!?</a></h1>
 		</div>
 	</div>
 	<script src="js/side-nav.js"></script>
-	<script src="js/forgot.js"></script>
 </body>
 </html>

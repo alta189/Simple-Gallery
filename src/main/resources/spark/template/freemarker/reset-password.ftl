@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="/css/components/notify.min.css">
 	<link rel="stylesheet" href="/css/sticky.css">
 	<link rel="stylesheet" href="/css/gallery.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="/js/uikit.min.js"></script>
 	<script src="/js/components/notify.min.js"></script>
 	<script src="/js/messages.js"></script>
