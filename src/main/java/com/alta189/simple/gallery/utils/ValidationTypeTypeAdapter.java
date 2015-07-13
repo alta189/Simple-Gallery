@@ -1,7 +1,6 @@
 package com.alta189.simple.gallery.utils;
 
 import com.alta189.auto.spark.AutoSparkUtils;
-import com.alta189.simple.gallery.objects.MessagePosition;
 import com.alta189.simple.gallery.objects.ValidationType;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;

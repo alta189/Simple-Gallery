@@ -1,7 +1,6 @@
 package com.alta189.simple.gallery.utils;
 
 import com.alta189.auto.spark.AutoSparkUtils;
-import com.alta189.simple.gallery.objects.MessagePosition;
 import com.alta189.simple.gallery.objects.MessageStyle;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
@@ -15,7 +14,7 @@ public class MessageStyleTypeAdapter<T> extends TypeAdapter<T> {
 			out.nullValue();
 			return;
 		}
-		 MessageStyle style = (MessageStyle) value;
+		MessageStyle style = (MessageStyle) value;
 		out.value(style.name().toLowerCase());
 	}
 

@@ -5,6 +5,7 @@ import com.alta189.simple.gallery.objects.MessagePosition;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+
 import java.io.IOException;
 
 public class MessagePositionTypeAdapter<T> extends TypeAdapter<T> {

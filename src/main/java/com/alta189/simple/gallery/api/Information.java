@@ -2,11 +2,8 @@ package com.alta189.simple.gallery.api;
 
 import com.alta189.auto.spark.Controller;
 import com.alta189.auto.spark.ResourceMapping;
-import com.alta189.auto.spark.Transformer;
 import com.alta189.simple.gallery.SimpleGalleryServer;
 import com.alta189.simple.gallery.objects.Result;
-import com.alta189.simple.gallery.objects.ResultTransformer;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.http.entity.ContentType;
 import spark.Request;
 import spark.Response;

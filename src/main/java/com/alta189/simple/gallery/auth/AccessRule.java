@@ -11,5 +11,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AccessRule {
 	UserRole value() default UserRole.VERIFIED;
+
 	boolean json() default false;
 }

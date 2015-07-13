@@ -14,11 +14,9 @@ import com.alta189.simple.gallery.objects.User;
 import com.alta189.simple.gallery.objects.UserRole;
 import com.alta189.simple.gallery.objects.ValidationRule;
 import com.alta189.simple.gallery.utils.MessageBuilder;
-import com.alta189.simple.gallery.utils.UserUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
-import org.apache.http.entity.ContentType;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -68,11 +66,7 @@ public class EmailHandler {
 		if (user.getRole().getValue() <= UserRole.UNVERIFIED.getValue()) {
 			List<ValidationRule> validationRules = SimpleGalleryServer.getDatabase().select(ValidationRule.class).execute().find();
 			if (validationRules != null && validationRules.size() > 0) {
-				for (ValidationRule rule : validationRules) {
-					if (rule.check(user.getEmail())) {
-						user.setRole(UserRole.VERIFIED);
-					}
-				}
+				validationRules.stream().filter(rule -> rule.check(user.getEmail())).forEach(rule -> user.setRole(UserRole.VERIFIED));
 			}
 		}
 

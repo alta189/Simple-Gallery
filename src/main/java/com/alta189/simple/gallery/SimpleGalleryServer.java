@@ -8,7 +8,6 @@ import com.alta189.simple.gallery.objects.MessagePosition;
 import com.alta189.simple.gallery.objects.MessageStyle;
 import com.alta189.simple.gallery.objects.Result;
 import com.alta189.simple.gallery.objects.UserRole;
-import com.alta189.simple.gallery.objects.ValidationRule;
 import com.alta189.simple.gallery.objects.ValidationType;
 import com.alta189.simple.gallery.utils.DateTimeTypeConverter;
 import com.alta189.simple.gallery.utils.MessagePositionTypeAdapter;

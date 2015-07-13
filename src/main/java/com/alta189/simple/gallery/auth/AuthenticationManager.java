@@ -22,11 +22,11 @@ public class AuthenticationManager {
 	private final UserRole DEFAULT_ROLE = UserRole.GUEST;
 	private final String ACCESS_DENIED = SimpleGalleryConstants.Results.ACCESS_DENIED.toJson();
 
-	public static AuthenticationManager getInstance() {
-		return instance;
+	private AuthenticationManager() {
 	}
 
-	private AuthenticationManager() {
+	public static AuthenticationManager getInstance() {
+		return instance;
 	}
 
 	public void scan() {

@@ -20,11 +20,11 @@ public class AuthFilter extends SparkFilter {
 	private final AuthenticationManager manager = AuthenticationManager.getInstance();
 	private final FreeMarkerEngine engine = new FreeMarkerEngine();
 
-	public static AuthFilter getInstance() {
-		return instance;
+	private AuthFilter() {
 	}
 
-	private AuthFilter() {
+	public static AuthFilter getInstance() {
+		return instance;
 	}
 
 	@Override

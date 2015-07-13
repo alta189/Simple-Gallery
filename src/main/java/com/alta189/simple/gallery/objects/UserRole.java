@@ -3,8 +3,6 @@ package com.alta189.simple.gallery.objects;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
-import java.util.Map;
-
 public enum UserRole {
 	GUEST(0),
 	UNVERIFIED(10),
@@ -13,7 +11,6 @@ public enum UserRole {
 	ADMINISTRATOR(100);
 
 	public static final ImmutableList<ImmutableMap<String, Object>> SELECT_OPTIONS;
-	private final int value;
 
 	static {
 		ImmutableList.Builder<ImmutableMap<String, Object>> builder = ImmutableList.builder();
@@ -26,12 +23,10 @@ public enum UserRole {
 		SELECT_OPTIONS = builder.build();
 	}
 
+	private final int value;
+
 	UserRole(final int value) {
 		this.value = value;
-	}
-
-	public int getValue() {
-		return value;
 	}
 
 	public static UserRole fromValue(int value) {
@@ -54,5 +49,9 @@ public enum UserRole {
 			}
 		}
 		return defaultRole; // default value
+	}
+
+	public int getValue() {
+		return value;
 	}
 }

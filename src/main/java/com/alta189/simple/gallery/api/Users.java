@@ -10,14 +10,11 @@ import com.alta189.simple.gallery.SimpleGalleryConstants;
 import com.alta189.simple.gallery.SimpleGalleryServer;
 import com.alta189.simple.gallery.auth.AccessRule;
 import com.alta189.simple.gallery.objects.EmailConfirm;
-import com.alta189.simple.gallery.objects.MessagePosition;
-import com.alta189.simple.gallery.objects.MessageStyle;
 import com.alta189.simple.gallery.objects.PasswordReset;
 import com.alta189.simple.gallery.objects.Result;
 import com.alta189.simple.gallery.objects.ResultTransformer;
 import com.alta189.simple.gallery.objects.User;
 import com.alta189.simple.gallery.objects.UserRole;
-import com.alta189.simple.gallery.utils.MessageBuilder;
 import com.alta189.simple.gallery.utils.PasswordUtils;
 import com.alta189.simple.gallery.utils.UserUtils;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -29,7 +26,6 @@ import org.apache.http.entity.ContentType;
 import spark.Request;
 import spark.Response;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -365,7 +361,7 @@ public class Users {
 	private Double safeCastDouble(Object o, double defaultValue) {
 		try {
 			return (Double) o;
-		} catch (Exception ignored){
+		} catch (Exception ignored) {
 		}
 		return defaultValue;
 	}

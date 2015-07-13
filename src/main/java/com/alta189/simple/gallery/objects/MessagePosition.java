@@ -9,12 +9,9 @@ public enum MessagePosition {
 	BOTTOM_RIGHT("bottom-right");
 
 	private final String value;
+
 	MessagePosition(String value) {
 		this.value = value;
-	}
-
-	public String getValue() {
-		return value;
 	}
 
 	public static MessagePosition fromValue(String value) {
@@ -24,5 +21,9 @@ public enum MessagePosition {
 			}
 		}
 		return TOP_RIGHT; // default value
+	}
+
+	public String getValue() {
+		return value;
 	}
 }

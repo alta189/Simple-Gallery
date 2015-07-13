@@ -17,6 +17,14 @@ public class MessageBuilder {
 		this.message = message;
 	}
 
+	public static MessageBuilder fromJson(String json) {
+		return new MessageBuilder(SimpleGalleryServer.GSON.fromJson(json, Message.class));
+	}
+
+	public static MessageBuilder get(Request request) {
+		return new MessageBuilder().setSessionId(request);
+	}
+
 	public int getTimeout() {
 		return message.getTimeout();
 	}
@@ -57,13 +65,13 @@ public class MessageBuilder {
 		return message.getSessionId();
 	}
 
-	public MessageBuilder setSessionId(String sessionId) {
-		message.setSessionId(sessionId);
+	public MessageBuilder setSessionId(Request request) {
+		setSessionId(request.session(true).id());
 		return this;
 	}
 
-	public MessageBuilder setSessionId(Request request) {
-		setSessionId(request.session(true).id());
+	public MessageBuilder setSessionId(String sessionId) {
+		message.setSessionId(sessionId);
 		return this;
 	}
 
@@ -77,13 +85,5 @@ public class MessageBuilder {
 
 	public void delete() {
 		SimpleGalleryServer.getDatabase().remove(message);
-	}
-
-	public static MessageBuilder fromJson(String json) {
-		return new MessageBuilder(SimpleGalleryServer.GSON.fromJson(json, Message.class));
-	}
-
-	public static MessageBuilder get(Request request) {
-		return new MessageBuilder().setSessionId(request);
 	}
 }

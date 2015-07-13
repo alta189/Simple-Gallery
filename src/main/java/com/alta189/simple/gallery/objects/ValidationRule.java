@@ -28,12 +28,12 @@ public class ValidationRule {
 		return rule;
 	}
 
-	public Pattern getPattern() {
-		return Pattern.compile(rule);
-	}
-
 	public void setRule(String rule) {
 		this.rule = rule;
+	}
+
+	public Pattern getPattern() {
+		return Pattern.compile(rule);
 	}
 
 	public ValidationType getType() {

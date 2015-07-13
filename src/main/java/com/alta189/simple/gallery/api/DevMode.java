@@ -43,7 +43,7 @@ public class DevMode {
 	}
 
 	@ResourceMapping("/clear/email")
-	 public Result clearEmail(Request request, Response response) {
+	public Result clearEmail(Request request, Response response) {
 		response.type(ContentType.APPLICATION_JSON.getMimeType());
 
 		if (!isDevMode()) {
@@ -65,7 +65,7 @@ public class DevMode {
 	}
 
 	@ResourceMapping("/clear/image")
-	 public Result clearImage(Request request, Response response) {
+	public Result clearImage(Request request, Response response) {
 		response.type(ContentType.APPLICATION_JSON.getMimeType());
 
 		if (!isDevMode()) {

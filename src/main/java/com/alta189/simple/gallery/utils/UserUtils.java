@@ -3,7 +3,6 @@ package com.alta189.simple.gallery.utils;
 import com.alta189.simple.gallery.SimpleGalleryServer;
 import com.alta189.simple.gallery.objects.User;
 import spark.Request;
-import spark.Response;
 
 public class UserUtils {
 	public static User getUser(Request request) {
