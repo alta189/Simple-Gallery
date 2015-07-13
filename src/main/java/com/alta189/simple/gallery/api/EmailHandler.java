@@ -4,6 +4,7 @@ import com.alta189.auto.spark.Controller;
 import com.alta189.auto.spark.ResourceMapping;
 import com.alta189.auto.spark.TemplateEngine;
 import com.alta189.simple.gallery.PageServ;
+import com.alta189.simple.gallery.SimpleGalleryConstants;
 import com.alta189.simple.gallery.SimpleGalleryServer;
 import com.alta189.simple.gallery.objects.EmailConfirm;
 import com.alta189.simple.gallery.objects.MessagePosition;
@@ -16,6 +17,7 @@ import com.alta189.simple.gallery.utils.MessageBuilder;
 import com.alta189.simple.gallery.utils.UserUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.http.entity.ContentType;
 import spark.ModelAndView;
 import spark.Request;
@@ -53,6 +55,15 @@ public class EmailHandler {
 		}
 
 		user.setVerifiedEmail(true);
+
+		final String defaultAdmin = SimpleGalleryServer.SETTINGS.getString(SimpleGalleryConstants.Settings.Keys.USER_DEFAULT_ADMIN);
+		System.out.println("defaultAdmin = '" + defaultAdmin + "'");
+		if (StringUtils.isNotEmpty(defaultAdmin) && StringUtils.isNotBlank(defaultAdmin) && EmailValidator.getInstance().isValid(defaultAdmin)) {
+			if (user.getEmail().equalsIgnoreCase(defaultAdmin)) {
+				System.out.println("SET ADMIN");
+				user.setRole(UserRole.ADMINISTRATOR);
+			}
+		}
 
 		if (user.getRole().getValue() <= UserRole.UNVERIFIED.getValue()) {
 			List<ValidationRule> validationRules = SimpleGalleryServer.getDatabase().select(ValidationRule.class).execute().find();

@@ -26,4 +26,7 @@
             <forgot-password>Password Reset</forgot-password>
         </subject>
     </email>
+    <users>
+        <default-admin></default-admin>
+    </users>
 </settings>

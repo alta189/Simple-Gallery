@@ -33,6 +33,7 @@ public class SimpleGalleryConstants {
 			public static final String EMAIL_SUBJECT_EMAIL_VALIDATION = "email.subject.email-validation";
 			public static final String EMAIL_SUBJECT_FORGOT_PASSWORD = "email.subject.forgot-password";
 			public static final String EMAIL_ADDRESS_CONTACT_US = "email.address.contact-us";
+			public static final String USER_DEFAULT_ADMIN = "users.default-admin";
 		}
 
 		public static class Defaults {
