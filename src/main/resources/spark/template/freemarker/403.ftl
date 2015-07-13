@@ -37,7 +37,7 @@
 					</div>
 				</div>
 				<li class="uk-nav-divider"></li>
-				<li class="uk-active"><a href="#"><i class="uk-icon-sign-in"></i> &nbsp;Sign In</a></li>
+				<li><a href="/signin"><i class="uk-icon-sign-in"></i> &nbsp;Sign In</a></li>
 				<li><a href="#"><i class="uk-icon-picture-o"></i> &nbsp;Create Album</a></li>
 				<li><a href="/admin"><i class="uk-icon-terminal"></i> &nbsp;Admin</a></li>
 				<li class="uk-nav-divider"></li>
