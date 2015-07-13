@@ -7,9 +7,14 @@ import com.alta189.simple.gallery.objects.Message;
 import com.alta189.simple.gallery.objects.MessagePosition;
 import com.alta189.simple.gallery.objects.MessageStyle;
 import com.alta189.simple.gallery.objects.Result;
+import com.alta189.simple.gallery.objects.UserRole;
+import com.alta189.simple.gallery.objects.ValidationRule;
+import com.alta189.simple.gallery.objects.ValidationType;
 import com.alta189.simple.gallery.utils.DateTimeTypeConverter;
 import com.alta189.simple.gallery.utils.MessagePositionTypeAdapter;
 import com.alta189.simple.gallery.utils.MessageStyleTypeAdapter;
+import com.alta189.simple.gallery.utils.UserRoleTypeAdapter;
+import com.alta189.simple.gallery.utils.ValidationTypeTypeAdapter;
 import com.alta189.simplesave.Database;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -46,6 +51,8 @@ public class SimpleGalleryServer {
 			.registerTypeAdapter(DateTime.class, new DateTimeTypeConverter())
 			.registerTypeAdapter(MessagePosition.class, new MessagePositionTypeAdapter<>())
 			.registerTypeAdapter(MessageStyle.class, new MessageStyleTypeAdapter<>())
+			.registerTypeAdapter(UserRole.class, new UserRoleTypeAdapter<>())
+			.registerTypeAdapter(ValidationType.class, new ValidationTypeTypeAdapter<>())
 			.create();
 	public static final DateTimeFormatter DATE_FORMAT = DateTimeFormat.forPattern("MM/dd/yyyy hh:mm:ss aa");
 	public static final DatabaseManager DATABASE_MANAGER = new DatabaseManager();

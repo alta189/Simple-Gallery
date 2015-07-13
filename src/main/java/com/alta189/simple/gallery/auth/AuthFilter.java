@@ -5,7 +5,6 @@ import com.alta189.simple.gallery.PageServ;
 import com.alta189.simple.gallery.objects.User;
 import com.alta189.simple.gallery.objects.UserRole;
 import com.alta189.simple.gallery.utils.UserUtils;
-import org.apache.commons.lang3.SystemUtils;
 import org.apache.http.HttpStatus;
 import spark.ModelAndView;
 import spark.Request;

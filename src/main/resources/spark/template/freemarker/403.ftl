@@ -2,21 +2,23 @@
 <html lang="en-gb" dir="ltr" class="uk-height-1-1">
 <head>
 	<meta charset="utf-8">
-	<title>${gallery_name} | Sign In</title>
+	<title>${gallery_name} | Access Denied</title>
 	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 	<link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
 	<link rel="stylesheet" href="css/uikit.almost-flat.min.css">
-	<link rel="stylesheet" href="css/components/notify.min.css">
-	<link rel="stylesheet" href="css/sticky.css">
+	<link rel="stylesheet" href="css/components/notify.almost-flat.min.css">
+	<link rel="stylesheet" href="css/components/sticky.almost-flat.min.css">
 	<link rel="stylesheet" href="css/gallery.css">
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="js/uikit.min.js"></script>
 	<script src="js/components/notify.min.js"></script>
+	<script src="js/components/sticky.min.js"></script>
 	<script src="js/messages.js"></script>
 </head>
 <body class="uk-height-1-1">
-	<div id="sticky-anchor"></div>
-	<div id="sticky"><a class="uk-icon-button uk-icon-navicon" data-uk-offcanvas="{target: '#side-nav'}"></a></div>
+	<div class="uk-container" style="margin: 0; padding: 10px 0 0 10px">
+		<div data-uk-sticky="{top: 10}"><a class="uk-icon-button uk-icon-navicon" data-uk-offcanvas="{target: '#side-nav'}"></a></div>
+	</div>
 	<!-- This is the off-canvas sidebar -->
 	<div id="side-nav" class="uk-offcanvas">
 		<div class="uk-offcanvas-bar">
@@ -37,7 +39,7 @@
 				<li class="uk-nav-divider"></li>
 				<li class="uk-active"><a href="#"><i class="uk-icon-sign-in"></i> &nbsp;Sign In</a></li>
 				<li><a href="#"><i class="uk-icon-picture-o"></i> &nbsp;Create Album</a></li>
-				<li><a href="#"><i class="uk-icon-terminal"></i> &nbsp;Admin</a></li>
+				<li><a href="/admin"><i class="uk-icon-terminal"></i> &nbsp;Admin</a></li>
 				<li class="uk-nav-divider"></li>
 				<li><a href="#"><i class="uk-icon-support"></i> &nbsp;Contact Us</a></li>
 				<div class="pinned-bottom">

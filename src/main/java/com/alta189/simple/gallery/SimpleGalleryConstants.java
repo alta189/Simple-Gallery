@@ -42,6 +42,11 @@ public class SimpleGalleryConstants {
 			public static final String GALLERY_DESCRIPTION = "Simple Gallery example";
 			public static final String GALLERY_HOST = "http://localhost";
 			public static final String GALLERY_WEBADMIN = "Simple Gallery Team";
+			public static final String EMAIL_ADDRESS_EMAIL_VALIDATION = "noreply@example.com";
+			public static final String EMAIL_ADDRESS_FORGOT_PASSWORD = "noreply@example.com";
+			public static final String EMAIL_SUBJECT_EMAIL_VALIDATION = "Validate Your Email Address";
+			public static final String EMAIL_SUBJECT_FORGOT_PASSWORD = "Password Reset";
+			public static final String EMAIL_ADDRESS_CONTACT_US = "support@example.com";
 		}
 	}
 

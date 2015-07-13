@@ -30,7 +30,6 @@ public class Albums {
 
 		String title = request.queryMap("title").value();
 		if (!TitleUtils.isValidTitle(title)) {
-			System.out.println("title = '" + title + "'");
 			return Result.error("invalid title");
 		}
 

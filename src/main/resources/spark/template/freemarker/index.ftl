@@ -6,18 +6,19 @@
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon.png">
         <link rel="stylesheet" href="css/uikit.almost-flat.min.css">
-	    <link rel="stylesheet" href="css/components/notify.min.css">
-        <link rel="stylesheet" href="css/sticky.css">
+	    <link rel="stylesheet" href="css/components/notify.almost-flat.min.css">
+	    <link rel="stylesheet" href="css/components/sticky.almost-flat.min.css">
         <link rel="stylesheet" href="css/gallery.css">
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script src="js/uikit.min.js"></script>
 	    <script src="js/components/notify.min.js"></script>
+	    <script src="js/components/sticky.min.js"></script>
 	    <script src="js/messages.js"></script>
     </head>
     <body>
-        <div id="sticky-anchor"></div>
-        <div id="sticky"><a class="uk-icon-button uk-icon-navicon" data-uk-offcanvas="{target: '#side-nav'}"></a></div>
-    
+        <div class="uk-container" style="margin: 0; padding: 10px 0 0 10px">
+	        <div data-uk-sticky="{top: 10}"><a class="uk-icon-button uk-icon-navicon" data-uk-offcanvas="{target: '#side-nav'}"></a></div>
+        </div>
         <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
 
             <!-- This is the off-canvas sidebar -->
@@ -40,7 +41,7 @@
                         <li class="uk-nav-divider"></li>
                         <li id="nav-user-control"><a href="/signin"><i class="uk-icon-sign-in"></i> &nbsp;Sign In</a></li>
                         <li><a href="#"><i class="uk-icon-picture-o"></i> &nbsp;Create Album</a></li>
-                        <li><a href="#"><i class="uk-icon-terminal"></i> &nbsp;Admin</a></li>
+                        <li><a href="/admin"><i class="uk-icon-terminal"></i> &nbsp;Admin</a></li>
                         <li class="uk-nav-divider"></li>
                         <li><a href="#"><i class="uk-icon-support"></i> &nbsp;Contact Us</a></li>
                         <div class="pinned-bottom">
@@ -141,7 +142,6 @@
                 </div>
             </div>
         </div>
-        <script src="js/sticky.js"></script>
 	    <script src="js/side-nav.js"></script>
     </body>
 </html>

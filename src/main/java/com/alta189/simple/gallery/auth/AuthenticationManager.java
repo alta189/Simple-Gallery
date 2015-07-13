@@ -31,14 +31,17 @@ public class AuthenticationManager {
 
 	public void scan() {
 		for (AutoController controller : SimpleGalleryServer.AUTO_SPARK.getRegisteredControllers()) {
+			AccessRule parentAccess = controller.getControllerClass().getAnnotation(AccessRule.class);
+			UserRole parentRole = parentAccess != null ? parentAccess.value() : null;
+			boolean parentJsonPath = parentAccess != null && parentAccess.json();
 			controller.getRegistrations().stream().filter(registration -> registration.getClass().equals(ResourceRegistration.class)).forEach(registration -> {
 				ResourceRegistration resource = (ResourceRegistration) registration;
 
 				AccessRule accessRule = resource.getMethod().getAnnotation(AccessRule.class);
 
-				UserRole requiredRole = getRequiredRole(accessRule);
+				UserRole requiredRole = getRequiredRole(accessRule, parentRole);
 
-				boolean jsonPath = isJsonPath(accessRule);
+				boolean jsonPath = isJsonPath(accessRule, parentJsonPath);
 
 				resource.getPaths().forEach(path -> {
 					paths.put(path, requiredRole);
@@ -50,16 +53,16 @@ public class AuthenticationManager {
 		}
 	}
 
-	private UserRole getRequiredRole(AccessRule accessRule) {
-		UserRole requiredRole = DEFAULT_ROLE;
+	private UserRole getRequiredRole(AccessRule accessRule, UserRole parentRole) {
+		UserRole requiredRole = parentRole != null ? parentRole : DEFAULT_ROLE;
 		if (accessRule != null && accessRule.value() != null) {
 			requiredRole = accessRule.value();
 		}
 		return requiredRole;
 	}
 
-	private boolean isJsonPath(AccessRule accessRule) {
-		return accessRule != null && accessRule.json();
+	private boolean isJsonPath(AccessRule accessRule, boolean parentJsonPath) {
+		return accessRule != null && accessRule.json() || parentJsonPath;
 	}
 
 	private UserRole getPathRole(String path) {
@@ -83,6 +86,6 @@ public class AuthenticationManager {
 	}
 
 	public boolean registeredControllerPath(String path) {
-		return paths.containsKey(path);
+		return path.startsWith("/api/") || paths.containsKey(path);
 	}
 }

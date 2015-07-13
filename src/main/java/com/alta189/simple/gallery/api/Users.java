@@ -1,5 +1,6 @@
 package com.alta189.simple.gallery.api;
 
+import com.alta189.auto.spark.AutoSparkUtils;
 import com.alta189.auto.spark.Controller;
 import com.alta189.auto.spark.RequestMethod;
 import com.alta189.auto.spark.ResourceMapping;
@@ -7,14 +8,20 @@ import com.alta189.auto.spark.Transformer;
 import com.alta189.simple.gallery.MailManager;
 import com.alta189.simple.gallery.SimpleGalleryConstants;
 import com.alta189.simple.gallery.SimpleGalleryServer;
+import com.alta189.simple.gallery.auth.AccessRule;
 import com.alta189.simple.gallery.objects.EmailConfirm;
+import com.alta189.simple.gallery.objects.MessagePosition;
+import com.alta189.simple.gallery.objects.MessageStyle;
 import com.alta189.simple.gallery.objects.PasswordReset;
 import com.alta189.simple.gallery.objects.Result;
 import com.alta189.simple.gallery.objects.ResultTransformer;
 import com.alta189.simple.gallery.objects.User;
+import com.alta189.simple.gallery.objects.UserRole;
+import com.alta189.simple.gallery.utils.MessageBuilder;
 import com.alta189.simple.gallery.utils.PasswordUtils;
 import com.alta189.simple.gallery.utils.UserUtils;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -22,7 +29,9 @@ import org.apache.http.entity.ContentType;
 import spark.Request;
 import spark.Response;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @ResourceMapping("/api/users")
@@ -35,6 +44,7 @@ public class Users {
 		User user = new User();
 		user.setEmail(request.queryParams("email"));
 		user.setName(request.queryParams("name"));
+		user.setRole(UserRole.UNVERIFIED);
 		String emailConfirm = request.queryParams("confirm_email");
 		String passConfirm = request.queryParams("confirm_password");
 
@@ -84,6 +94,98 @@ public class Users {
 		new Thread(() -> {
 			MailManager.getInstance().sendEmailVerification(user, em);
 		}).start();
+
+		return SimpleGalleryConstants.Results.SUCCESS;
+	}
+
+	@ResourceMapping("/remove/:id")
+	@AccessRule(UserRole.ADMINISTRATOR)
+	public Result remove(Request request, Response response) {
+		int userId = NumberUtils.toInt(request.params("id"), -1);
+
+		if (userId <= 0) {
+			return Result.error("Invalid Request!");
+		}
+
+		User user = SimpleGalleryServer.getDatabase().select(User.class).where().equal("id", userId).execute().findOne();
+		if (user == null) {
+			return Result.error("Invalid Request!");
+		}
+
+		SimpleGalleryServer.getDatabase().remove(user);
+
+		return SimpleGalleryConstants.Results.SUCCESS;
+	}
+
+	@ResourceMapping(value = "/update", accepts = "application/json", method = RequestMethod.PUT)
+	@AccessRule(UserRole.ADMINISTRATOR)
+	public Result update(Request request, Response response) {
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
+		if (StringUtils.isEmpty(request.body()) || StringUtils.isBlank(request.body())) {
+			return Result.error("Invalid Request");
+		}
+
+		Map<String, Object> map = SimpleGalleryServer.GSON.fromJson(request.body(), SimpleGalleryConstants.GsonTypes.TYPE_MAP_STRING_OBJECT);
+		if (map == null || map.size() < 1) {
+			return Result.error("Invalid Request");
+		}
+
+		if (!map.containsKey("id")) {
+			return Result.error("Invalid Request");
+		}
+
+		int id = safeCastDouble(map.get("id"), -1.0).intValue();
+		if (id <= 0) {
+			return Result.error("Invalid Request");
+		}
+
+		User user = SimpleGalleryServer.getDatabase().select(User.class).where().equal("id", id).execute().findOne();
+		if (user == null) {
+			return Result.error("User Does Not Exist");
+		}
+
+		if (map.containsKey("name")) {
+			String name = AutoSparkUtils.safeCast(map.get("name"));
+			if (StringUtils.isNotEmpty(name) && StringUtils.isNotBlank(name)) {
+				user.setName(name);
+			}
+		}
+
+		if (map.containsKey("password") && map.containsKey("confirm")) {
+			String password = AutoSparkUtils.safeCast(map.get("name"));
+			String confirm = AutoSparkUtils.safeCast(map.get("name"));
+			if (StringUtils.isNotEmpty(password) && StringUtils.isNotBlank(password) && StringUtils.isNotEmpty(confirm) && StringUtils.isNotBlank(confirm)) {
+				if (!password.equals(confirm)) {
+					return Result.error("Passwords Do Not Match");
+				} else if (!PasswordUtils.validPassword(password)) {
+					return Result.error("Invalid Password");
+				}
+				user.setPassword(DigestUtils.sha1Hex(password));
+			}
+		}
+
+		if (map.containsKey("email")) {
+			String email = AutoSparkUtils.safeCast(map.get("email"));
+			if (StringUtils.isNotEmpty(email) && StringUtils.isNotBlank(email)) {
+				if (!EmailValidator.getInstance().isValid(email)) {
+					return Result.error("Invalid Email");
+				}
+				user.setEmail(email);
+			}
+		}
+
+		if (map.containsKey("role")) {
+			String roleRaw = AutoSparkUtils.safeCast(map.get("role"));
+			if (StringUtils.isNotEmpty(roleRaw) && StringUtils.isNotBlank(roleRaw)) {
+				UserRole role = UserRole.fromName(roleRaw, null);
+				if (role != null) {
+					user.setRole(role);
+				}
+			}
+		}
+
+		SimpleGalleryServer.getDatabase().save(user);
 
 		return SimpleGalleryConstants.Results.SUCCESS;
 	}
@@ -251,5 +353,20 @@ public class Users {
 		List<User> users = SimpleGalleryServer.getDatabase().select(User.class).execute().find();
 
 		return Result.wrap(users);
+	}
+
+	@ResourceMapping("/roles")
+	public Result roles(Request request, Response response) {
+		response.type(ContentType.APPLICATION_JSON.getMimeType());
+
+		return Result.wrap(UserRole.SELECT_OPTIONS);
+	}
+
+	private Double safeCastDouble(Object o, double defaultValue) {
+		try {
+			return (Double) o;
+		} catch (Exception ignored){
+		}
+		return defaultValue;
 	}
 }

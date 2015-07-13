@@ -8,3 +8,6 @@
 .hidden {
 	display: none;
 }
+.uk-description-list-horizontal > dt {
+	width: 185px;
+}

@@ -3,12 +3,15 @@ package com.alta189.simple.gallery;
 import com.alta189.auto.spark.Controller;
 import com.alta189.auto.spark.ResourceMapping;
 import com.alta189.auto.spark.TemplateEngine;
+import com.alta189.simple.gallery.auth.AccessRule;
 import com.alta189.simple.gallery.objects.MessagePosition;
 import com.alta189.simple.gallery.objects.MessageStyle;
 import com.alta189.simple.gallery.objects.PasswordReset;
 import com.alta189.simple.gallery.objects.User;
+import com.alta189.simple.gallery.objects.UserRole;
 import com.alta189.simple.gallery.utils.MessageBuilder;
 import com.alta189.simple.gallery.utils.UserUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import spark.ModelAndView;
@@ -16,6 +19,8 @@ import spark.Request;
 import spark.Response;
 import spark.template.freemarker.FreeMarkerEngine;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,43 +60,24 @@ public class PageServ {
 
 	@ResourceMapping({"/forgot", "/forgotpassword", "/reset"})
 	public ModelAndView forgotPass(Request request, Response response) {
-		System.out.println();
 		Map<String, String> model = getBaseModel();
 
 		return new ModelAndView(model, "forgot-password.ftl");
 	}
 
-	@ResourceMapping("/reset/:user/:key")
-	@TemplateEngine(FreeMarkerEngine.class)
-	public ModelAndView reset(Request request, Response response) {
-		int userId = NumberUtils.toInt(request.params("user"), -1);
-		String key = request.params("key");
-
-		if (userId <= 0 || StringUtils.isEmpty(key)) {
-			MessageBuilder.get(request).setMessage("Invalid Request!").setStyle(MessageStyle.DANGER).setPosition(MessagePosition.TOP_RIGHT).save();
-			response.redirect("/");
-			return null;
-		}
-
-		PasswordReset passwordReset = SimpleGalleryServer.getDatabase().select(PasswordReset.class).where().equal("key", key).and().equal("user", userId).execute().findOne();
-		if (passwordReset == null) {
-			MessageBuilder.get(request).setMessage("Invalid Request!").setStyle(MessageStyle.DANGER).setPosition(MessagePosition.TOP_RIGHT).save();
-			response.redirect("/");
-			return null;
-		}
-
-		User user = SimpleGalleryServer.getDatabase().select(User.class).where().equal("id", userId).execute().findOne();
-		if (user == null) {
-			MessageBuilder.get(request).setMessage("Invalid Request!").setStyle(MessageStyle.DANGER).setPosition(MessagePosition.TOP_RIGHT).save();
-			response.redirect("/");
-			return null;
-		}
-
+	@ResourceMapping({"/admin"})
+	@AccessRule(UserRole.ADMINISTRATOR)
+	public ModelAndView admin(Request request, Response response) {
 		Map<String, String> model = getBaseModel();
-		model.put("reset_email", user.getEmail());
-		model.put("reset_key", key);
 
-		return new ModelAndView(model, "reset-password.ftl");
+		try {
+			model.put("editor_verify", FileUtils.readFileToString(SimpleGalleryConstants.Templates.EMAIL_VERIFICATION));
+			model.put("editor_reset", FileUtils.readFileToString(SimpleGalleryConstants.Templates.RESET_PASSWORD));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return new ModelAndView(model, "admin.ftl");
 	}
 
 	@ResourceMapping({"/404", "/errors/404","/errors/404.html"})

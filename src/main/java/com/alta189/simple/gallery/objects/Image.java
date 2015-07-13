@@ -5,6 +5,7 @@ import com.alta189.simplesave.Field;
 import com.alta189.simplesave.Id;
 import com.alta189.simplesave.Table;
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import org.joda.time.DateTime;
 
 @Table("images")
@@ -14,6 +15,7 @@ public class Image {
 	private int id;
 	@Field
 	@Expose
+	@SerializedName("file")
 	private String imageFile;
 	@Field
 	@Expose

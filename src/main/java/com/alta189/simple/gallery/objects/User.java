@@ -4,6 +4,7 @@ import com.alta189.simplesave.Field;
 import com.alta189.simplesave.Id;
 import com.alta189.simplesave.Table;
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 @Table("users")
 public class User {
@@ -20,8 +21,10 @@ public class User {
 	private String password;
 	@Field
 	@Expose
+	@SerializedName("verified_email")
 	private boolean verifiedEmail = false;
 	@Field
+	@Expose
 	private UserRole role = UserRole.GUEST;
 
 	public int getId() {

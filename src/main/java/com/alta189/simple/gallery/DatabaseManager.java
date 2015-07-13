@@ -6,6 +6,7 @@ import com.alta189.simple.gallery.objects.Image;
 import com.alta189.simple.gallery.objects.Message;
 import com.alta189.simple.gallery.objects.PasswordReset;
 import com.alta189.simple.gallery.objects.User;
+import com.alta189.simple.gallery.objects.ValidationRule;
 import com.alta189.simplesave.Database;
 import com.alta189.simplesave.DatabaseFactory;
 import com.alta189.simplesave.exceptions.ConnectionException;
@@ -32,6 +33,7 @@ public class DatabaseManager {
 			database.registerTable(EmailConfirm.class);
 			database.registerTable(PasswordReset.class);
 			database.registerTable(Message.class);
+			database.registerTable(ValidationRule.class);
 		} catch (TableRegistrationException e) {
 			e.printStackTrace();
 		}
