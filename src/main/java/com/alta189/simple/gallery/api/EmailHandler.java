@@ -55,10 +55,8 @@ public class EmailHandler {
 		user.setVerifiedEmail(true);
 
 		final String defaultAdmin = SimpleGalleryServer.SETTINGS.getString(SimpleGalleryConstants.Settings.Keys.USER_DEFAULT_ADMIN);
-		System.out.println("defaultAdmin = '" + defaultAdmin + "'");
 		if (StringUtils.isNotEmpty(defaultAdmin) && StringUtils.isNotBlank(defaultAdmin) && EmailValidator.getInstance().isValid(defaultAdmin)) {
 			if (user.getEmail().equalsIgnoreCase(defaultAdmin)) {
-				System.out.println("SET ADMIN");
 				user.setRole(UserRole.ADMINISTRATOR);
 			}
 		}
