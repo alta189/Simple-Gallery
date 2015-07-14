@@ -70,6 +70,13 @@ public class PageServ {
 		return new ModelAndView(model, "forgot-password.ftl");
 	}
 
+	@ResourceMapping({"/create"})
+	public ModelAndView createAlbum(Request request, Response response) {
+		Map<String, String> model = getBaseModel();
+
+		return new ModelAndView(model, "create-album.ftl");
+	}
+
 	@ResourceMapping({"/admin"})
 	@AccessRule(UserRole.ADMINISTRATOR)
 	public ModelAndView admin(Request request, Response response) {
