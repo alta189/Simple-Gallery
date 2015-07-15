@@ -19,9 +19,33 @@ function addImage(pImage, id) {
 	}).appendTo(figure);
 
 	var caption = $('<figcaption/>', {
-		class: 'uk-thumbnail-caption',
-		html: 'Click here to add a caption!'
+		class: 'uk-thumbnail-caption uk-grid'
 	}).appendTo(figure);
+
+	var captionLeft = $('<div/>', {
+		class: "uk-text-left uk-width-1-2"
+	}).appendTo(caption);
+
+	var captionRight = $('<div/>', {
+		class: "uk-text-right uk-width-1-2"
+	}).appendTo(caption);
+
+	var description = $('<span/>', {
+		class: 'uk-text-left',
+		html: 'Description here!'
+	}).appendTo(captionLeft);
+
+	var buttonSpan = $('<span/>', {
+		class: 'uk-text-right'
+	}).appendTo(captionRight);
+
+	var editDescription = $('<a/>', {
+		html: '<i class="uk-icon-pencil"></i>&nbsp;Edit Description'
+	}).appendTo(buttonSpan);
+
+	var deleteImage = $('<a/>', {
+		html: '<i class="uk-icon-remove"></i>&nbsp;Delete'
+	}).appendTo(buttonSpan);
 
 	grid.appendTo($imageDisplay);
 	console.log('done');
